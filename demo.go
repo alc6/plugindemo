@@ -6,6 +6,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"os"
 	"text/template"
 )
 
@@ -44,6 +45,8 @@ func New(ctx context.Context, next http.Handler, config *Config, name string) (h
 }
 
 func (a *Demo) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
+	os.Stdout.WriteString("HEY, my plugin is running!\n")
+
 	for key, value := range a.headers {
 		tmpl, err := a.template.Parse(value)
 		if err != nil {
